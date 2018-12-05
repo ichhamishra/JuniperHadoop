@@ -16,7 +16,7 @@
 						
 						<form class="forms-sample" id="DatapropagationHome" name="DatapropagationHome"
 							method="post"
-							action="${pageContext.request.contextPath}/datapropagation/ArchiveData">
+							action="${pageContext.request.contextPath}/datapropagation/SourceDetails">
 							<input type="hidden" name="src_val" id="src_val" value="">
 							<div class="container">
 								<div class="row text-center text-lg-left">

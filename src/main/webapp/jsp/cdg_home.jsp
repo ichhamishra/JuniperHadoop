@@ -77,7 +77,7 @@
                   <img src="${pageContext.request.contextPath}/assets/img/circle.svg" class="card-img-absolute" alt="circle-image"/>
                   <h2 class="font-weight-normal mb-3">Data Propagation</h2>
                   <h4>Hadoop Archive</h4>
-				  <h4>Hive Propagation</h4>
+				  <h4>Data Propagation</h4>
                 </div>
               </div>
             </div>

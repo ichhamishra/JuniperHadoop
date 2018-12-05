@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.iig.gcp.datapropagation.service.DatapropagationService;
 /*import com.iig.gcp.datapropagation.DatapropagationService;
 import com.iig.gcp.datapropagation.dao.DatapropagationDAO;
 import com.iig.gcp.datapropagation.dto.ReservoirDTO;*/
@@ -23,10 +24,10 @@ import com.iig.gcp.utils.BigQueryUtils;
 @RestController
 public class DatapropagationController {
 	
-/*	@Autowired
-	DatapropagationService eService;
-
 	@Autowired
+	DatapropagationService es;
+
+	/*@Autowired
 	DatapropagationDAO iDatapropagationDAO;*/
 	
 @RequestMapping(value = "/datapropagation/DatapropagationHome", method = RequestMethod.GET)
@@ -35,10 +36,11 @@ public class DatapropagationController {
 	}
 
 
-@RequestMapping(value = "/datapropagation/ArchiveData", method = RequestMethod.POST)
+@RequestMapping(value = "/datapropagation/SourceDetails", method = RequestMethod.POST)
 public ModelAndView ArchiveData(@Valid @ModelAttribute("src_val") String src_val, ModelMap model,HttpServletRequest request) {
-model.addAttribute("src_val", src_val);
-if(src_val.equalsIgnoreCase("Hive")) { return new ModelAndView("/datapropagation/ArchiveData"); }
+	ArrayList<String> system = es.getSystem((String)request.getSession().getAttribute("project"));
+	model.addAttribute("system", system);
+if(src_val.equalsIgnoreCase("Hive")) { return new ModelAndView("/datapropagation/SourceDetails"); }
 else { return new ModelAndView("/datapropagation/DatapropagationHome"); }
 }
 @RequestMapping(value = "/datapropagation/FeedHome", method = RequestMethod.GET)
@@ -46,30 +48,43 @@ public ModelAndView TargetHome() {
 	return new ModelAndView("datapropagation/FeedHome");
 
 }
+@RequestMapping(value = "/datapropagation/propagate", method = RequestMethod.GET)
+public ModelAndView Datapropagate(@Valid @ModelAttribute("src_val") String src_val, ModelMap model,HttpServletRequest request) {
+	ArrayList<String> system = es.getSystem((String)request.getSession().getAttribute("project"));
+	model.addAttribute("system", system); 
+	return new ModelAndView("datapropagation/propagate"); 
+}
+@RequestMapping(value = "/datapropagation/Submit", method = RequestMethod.POST)
+public ModelAndView dataprop(@Valid @ModelAttribute("x") String x, ModelMap model)
+		throws UnsupportedOperationException, Exception {
+	
+	return new ModelAndView("datapropagation/propagate");
+}
 
 @RequestMapping(value = "/datapropagation/SubmitBatch", method = RequestMethod.POST)
 public ModelAndView datapropagationSubmitBatch(@Valid @ModelAttribute("x2") String x2, ModelMap model)
 		throws UnsupportedOperationException, Exception {
 
-	/*String resp = eService.invokeRest(x2, "addBatch");
+	String resp = es.invokeRest(x2, "addConnection");
 	model.addAttribute("successString", resp.toString());
-	ArrayList<ReservoirDTO> arr = eService.getReservior();
+	/*ArrayList<ReservoirDTO> arr = eService.getReservior();
 	model.addAttribute("loadReservior", arr);*/
-	return new ModelAndView("datapropagation/ArchiveData");
+	return new ModelAndView("datapropagation/SourceDetails");
 }
+
 
 
 @RequestMapping(value = "/datapropagation/SubmitBatch1", method = RequestMethod.POST)
 public ModelAndView datapropagationSubmitBatch1(@Valid @ModelAttribute("x") String x, ModelMap model)
 		throws UnsupportedOperationException, Exception {
-	/*String resp = eService.invokeRest(x, "addBatch1");
-	model.addAttribute("successString", resp.toString());*/
+	String resp = es.invokeRest(x, "addConnection");
+	model.addAttribute("successString", resp.toString());
 	/*ArrayList<ReservoirDTO> arr = eService.getReservior();
 	model.addAttribute("loadReservior", arr);*/
-	return new ModelAndView("datapropagation/ArchiveData");
+	return new ModelAndView("datapropagation/TargetDetails");
 }
 
 
 
 }
-}
+

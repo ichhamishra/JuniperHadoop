@@ -275,7 +275,7 @@
          		${menu_code}
          	</div>	
          	<div id="menu">
-         	<li class="nav-item"> <a class="nav-link" data-toggle="collapse" href="#datapropagation" aria-expanded="false" aria-controls="datapropagation"> <span class="menu-title">Data Propagation</span> <i class="menu-arrow"></i> <i class="mdi mdi-database menu-icon"></i> </a> <div class="collapse" id="datapropagation"> <ul class="nav flex-column sub-menu"><li class="nav-item"> <a class="nav-link" href="/datapropagation/DatapropagationHome"> Connection Details </a></li><li class="nav-item"> <a class="nav-link" href="/datapropagation/Propagate"> Propagation Details </a></li>
+         	<li class="nav-item"> <a class="nav-link" data-toggle="collapse" href="#datapropagation" aria-expanded="false" aria-controls="datapropagation"> <span class="menu-title">Data Propagation</span> <i class="menu-arrow"></i> <i class="mdi mdi-database menu-icon"></i> </a> <div class="collapse" id="datapropagation"> <ul class="nav flex-column sub-menu"><li class="nav-item"> <a class="nav-link" href="/datapropagation/DatapropagationHome"> Connection Details </a></li><li class="nav-item"> <a class="nav-link" href="/datapropagation/propagate"> Propagation Details </a></li>
         
         </div>
         </ul>

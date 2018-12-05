@@ -14,7 +14,7 @@ function jsonconstructbulk(val) {
 		//console.log(x2);
 		alert(x2);
 		document.getElementById('addbatch').submit();
-	}
+}
 	
 function jsonconstruct(id) {		
 	
@@ -100,17 +100,17 @@ function jsonconstruct(id) {
 	<div class="form-group row">
 		<div class="col-sm-4">
 			<label>Knox Host Name *</label> <input type="text" class="form-control"
-				id="host_name" name="host_name" placeholder="Host Name"
+				id="Knox_host_name" name="Knox_host_name" placeholder="Knox Host Name"
 				value="${conn_val.host_name}">
 		</div>
 		<div class="col-sm-4">
 			<label>Knox Port Number *</label> <input type="text" class="form-control"
-				id="port" name="port" placeholder="Port Number"
+				id="Knox_port" name="Knox_port" placeholder="Knox Port Number"
 				value="${conn_val.port_no}">
 		</div>
 		<div class="col-sm-4">
 			<label>Knox Gateway *</label> <input type="text" class="form-control"
-				id="user_name" name="user_name" placeholder="Username"
+				id="Knox_gateway" name="Knox_gateway" placeholder="Knox Gateway"
 				value="${conn_val.username}">
 		</div>
 		</div>
@@ -129,13 +129,13 @@ function jsonconstruct(id) {
 		<div class="col-sm-12">
 			<label>Trust Store Path *</label> <input type="text"
 				class="form-control" id="TS_path" name="TS_path"
-				placeholder="select path.." value="${conn_val.connection_name}">
+				placeholder="select TS_path" value="${conn_val.connection_name}">
 		</div>
 	</div>
 	<div class="form-group row">
 <div class="col-sm-12">
 			<label>Trust Store Password *</label> 
-			<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+			<input type="password" class="form-control" id="TS_password" name="TS_password" placeholder="TS password">
 		</div>
 	</div>
 </fieldset>
@@ -172,17 +172,17 @@ function jsonconstruct(id) {
 	<div class="form-group row">
 		<div class="col-sm-4">
 			<label>Knox Host Name *</label> <input type="text" class="form-control"
-				id="host_name" name="host_name" placeholder="Host Name"
+				id="Knox_host_name" name="Knox_host_name" placeholder="Knox Host Name"
 				value="${conn_val.host_name}">
 		</div>
 		<div class="col-sm-4">
 			<label>Knox Port Number *</label> <input type="text" class="form-control"
-				id="port" name="port" placeholder="Port Number"
+				id="Knox_port" name="Knox_port" placeholder="Knox Port Number"
 				value="${conn_val.port_no}">
 		</div>
 		<div class="col-sm-4">
 			<label>Knox Gateway *</label> <input type="text" class="form-control"
-				id="user_name" name="user_name" placeholder="Username"
+				id="Knox_Gateway" name="Knox_Gateway" placeholder="Knox Gateway"
 				value="${conn_val.username}">
 		</div>
 		</div>
@@ -201,13 +201,13 @@ function jsonconstruct(id) {
 		<div class="col-sm-12">
 			<label>Trust Store Path *</label> <input type="text"
 				class="form-control" id="TS_path" name="TS_path"
-				placeholder="select path.." value="${conn_val.connection_name}">
+				placeholder="select TS_path" value="${conn_val.connection_name}">
 		</div>
 	</div>
 	<div class="form-group row">
 <div class="col-sm-12">
 			<label>Trust Store Password *</label> 
-			<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+			<input type="password" class="form-control" id="TS_password" name="TS_password" placeholder="TS Password">
 												
 		</div>
 	</div>
