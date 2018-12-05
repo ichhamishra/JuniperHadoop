@@ -1,0 +1,299 @@
+<jsp:include page="../cdg_header.jsp" />
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script>
+	function jsonconstruct(val) {
+		var data = {};
+		if(document.getElementById("material").value=="")
+			document.getElementById("material").value='N';
+		document.getElementById('button_type').value = val;
+		$(".form-control").serializeArray().map(function(x) {
+			data[x.name] = x.value;
+		});
+		var x = '{"header":{"user":"info@clouddatagrid.com","service_account":"Extraction_CDG_UK","reservoir_id":"R0001","event_time":"today"},"body":{"data":'
+				+ JSON.stringify(data) + '}}';
+		document.getElementById('x').value = x;
+		//alert(x);
+		//console.log(x);
+		document.getElementById('TargetDetails').submit();
+	}
+	var i = 1;
+	function dup_div() {
+		var dyn = document.getElementById('dyn1');
+		var dyndiv = dyn.cloneNode(true);
+		var x = ++i;
+		dyndiv.id = "dyn" + i;
+		dyndiv.getElementsByTagName('input')[0].id = "target_unique_name" + i;
+		dyndiv.getElementsByTagName('input')[0].name = "target_unique_name" + i;
+		dyndiv.getElementsByTagName('select')[0].id = "target_type" + i;
+		dyndiv.getElementsByTagName('select')[0].name = "target_type" + i;
+		dyndiv.getElementsByTagName('input')[1].id = "target_project" + i;
+		dyndiv.getElementsByTagName('input')[1].name = "target_project" + i;
+		dyndiv.getElementsByTagName('input')[2].id = "service_account" + i;
+		dyndiv.getElementsByTagName('input')[2].name = "service_account" + i;
+		dyndiv.getElementsByTagName('input')[3].id = "target_bucket" + i;
+		dyndiv.getElementsByTagName('input')[3].name = "target_bucket" + i;
+		dyndiv.getElementsByTagName('input')[4].id = "knox_url" + i;
+		dyndiv.getElementsByTagName('input')[4].name = "knox_url" + i;
+		dyndiv.getElementsByTagName('input')[5].id = "hadoop_path" + i;
+		dyndiv.getElementsByTagName('input')[5].name = "hadoop_path" + i;
+		dyndiv.getElementsByTagName('input')[6].id = "username" + i;
+		dyndiv.getElementsByTagName('input')[6].name = "username" + i;
+		dyndiv.getElementsByTagName('input')[7].id = "password" + i;
+		dyndiv.getElementsByTagName('input')[7].name = "password" + i;
+		dyndiv.getElementsByClassName('gx')[0].id = "g" + i;
+		dyndiv.getElementsByClassName('hx')[0].id = "h" + i;
+		dyn.parentNode.appendChild(dyndiv);
+		document.getElementById('counter').value = i;
+	}
+	function sys_typ(id, val) {
+		var in1 = id.slice(-1);
+		var in2 = id.slice(-2, -1);
+		if (in2 === "e")
+			;
+		else {
+			in1 = id.slice(-2);
+		}
+		var in3 = 'g' + in1;
+		var in4 = 'h' + in1;
+		var in5 = 'u' + in1;
+		if (val == "GCS") {
+			document.getElementById(in3).style.display = "block";
+			document.getElementById(in4).style.display = "none";
+			document.getElementById(in5).style.display = "none";
+		} else if (val == "HDFS") {
+			document.getElementById(in4).style.display = "block";
+			document.getElementById(in3).style.display = "none";
+			document.getElementById(in5).style.display = "none";
+		} else if (val == "Unix") {
+			document.getElementById(in5).style.display = "block";
+			document.getElementById(in3).style.display = "none";
+			document.getElementById(in4).style.display = "none";
+		}
+	}
+
+	function chg() {
+		if (document.getElementById("tgt").value == "") {
+			window.location.reload();
+		} else {
+			var tgt = document.getElementById("tgt").value;
+			$
+					.post(
+							'${pageContext.request.contextPath}/extraction/TargetDetailsEdit',
+							{
+								tgt : tgt
+							}, function(data) {
+								$('#cud').html(data)
+							});
+		}
+	}
+
+	function funccheck(val) {
+		if (val == 'create') {
+			window.location.reload();
+		} else {
+			document.getElementById('tgtfunc').style.display = "block";
+		}
+	}
+	
+	function chk() {
+		  var checkBox = document.getElementById("mt");
+		  var text = document.getElementById("material");
+		  if (checkBox.checked == true){
+		    text.value='Y';
+		  } else {
+			text.value='N';
+		  }
+		}
+</script>
+
+<div class="main-panel">
+	<div class="content-wrapper">
+		<div class="row">
+			<div class="col-12 grid-margin stretch-card">
+				<div class="card">
+					<div class="card-body">
+						<h4 class="card-title">Data Extraction</h4>
+						<p class="card-description">Target Details</p>
+						<%
+							if (request.getAttribute("successString") != null) {
+						%>
+						<p class="text-success h4">${successString}</p>
+						<%
+							}
+						%>
+						<%
+							if (request.getAttribute("errorString") != null) {
+						%>
+						<p class="text-danger h4">${errorString}</p>
+						<%
+							}
+						%>
+						<form class="forms-sample" id="TargetDetails" name="TargetDetails"
+							method="POST"
+							action="${pageContext.request.contextPath}/extraction/TargetDetails1"
+							enctype="application/json">
+							<input type="hidden" name="x" id="x" value=""> <input
+								type="hidden" name="counter" id="counter" class="form-control"
+								value="1"> <input type="hidden" name="button_type"
+								id="button_type" value="">
+								<input type="hidden" name="material"
+								id="material" value="" class="form-control">
+								<input type="hidden" name="project" id="project" class="form-control"
+								value="${project}">
+								<input type="hidden" name="user" id="user" class="form-control"
+								value="${usernm}">
+
+							<div class="form-group row">
+								<label class="col-sm-3 col-form-label">Target</label>
+								<div class="col-sm-4">
+									<div class="form-check form-check-info">
+										<label class="form-check-label"> <input type="radio"
+											class="form-check-input" name="radio" id="radio1"
+											checked="checked" value="create"
+											onclick="funccheck(this.value)"> Create
+										</label>
+									</div>
+								</div>
+								<div class="col-sm-4">
+									<div class="form-check form-check-info">
+										<label class="form-check-label"> <input type="radio"
+											class="form-check-input" name="radio" id="radio2"
+											value="edit" onclick="funccheck(this.value)"> Edit
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group" id="tgtfunc" style="display: none;">
+								<label>Select Target</label> <select name="tgt" id="tgt"
+									class="form-control" onchange="chg()">
+									<option value="" selected disabled>Select Target ...</option>
+									<c:forEach items="${tgt_val}" var="tgt_val">
+										<option value="${tgt_val}">${tgt_val}</option>
+									</c:forEach>
+								</select>
+							</div>
+							<div id="cud">
+								<fieldset class="fs">
+									<div>
+										<div id="dyn1">
+											<div class="form-group row">
+												<div class="col-sm-6">
+													<label>Target Name *</label> <input type="text"
+														class="form-control" id="target_unique_name1"
+														name="target_unique_name1" placeholder="Target Name">
+												</div>
+												<div class="col-sm-6">
+													<label>Target Type *</label> <select name="target_type1"
+														id="target_type1" class="form-control"
+														onchange="sys_typ(this.id,this.value)">
+														<option value="" selected disabled>Target Type
+															...</option>
+														<option value="GCS" selected="selected">Google
+															Cloud Storage</option>
+														<option value="HDFS">Hadoop File System</option>
+														<option value="Unix">Unix File System</option>
+													</select>
+												</div>
+											</div>
+											<div id="g1" class="gx">
+												<div class="form-group row">
+													<div class="col-sm-4">
+														<label>Target Project *</label> <input type="text"
+															class="form-control" id="target_project1"
+															name="target_project1" placeholder="Target Project"
+															value="juniperonprem">
+													</div>
+													<div class="col-sm-4">
+														<label>Service Account *</label> <input type="text"
+															class="form-control" id="service_account1"
+															name="service_account1" placeholder="Service Account"
+															value="Extraction_CDG_UK">
+													</div>
+													<div class="col-sm-4">
+														<label>Target Bucket *</label> <input type="text"
+															class="form-control" id="target_bucket1"
+															name="target_bucket1" placeholder="Target Bucket"
+															value="extraction-bucket1">
+													</div>
+												</div>
+											</div>
+											<div id="h1" class="hx" style="display: none;">
+												<div class="form-group row">
+													<div class="col-sm-6">
+														<label>KNOX URL *</label> <input type="text"
+															class="form-control" id="knox_url1" name="knox_url1"
+															placeholder="KNOX URL" value="https://40.121.8.194:8443">
+													</div>
+													<div class="col-sm-6">
+														<label>Hadoop Path *</label> <input type="text"
+															class="form-control" id="hadoop_path1"
+															name="hadoop_path1" placeholder="Hadoop Path"
+															value="/apps/hive/warehouse/demo/test123">
+													</div>
+												</div>
+												<div class="form-group row">
+													<div class="col-sm-6">
+														<label>Username *</label> <input type="text"
+															class="form-control" id="username1" name="username1"
+															placeholder="Username" value="guest">
+													</div>
+													<div class="col-sm-6">
+														<label>Password *</label> <input type="password"
+															class="form-control" id="password1" name="password1"
+															placeholder="Password" value="guest-password">
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="form-check form-check-flat form-check-info">
+														<label class="form-check-label"> <input
+															type="checkbox" name="mt" id="mt" class="form-check-input"
+															onclick="chk()">
+															Enable Materialization <i class="input-helper"></i></label>
+													</div>
+												</div>
+											</div>
+											<div id="u1" class="ux" style="display: none;">
+									<div class="form-group row">
+										<div class="col-sm-6">
+										<label>Disk Drive *</label> <select name="drive_id1" id="drive_id1"
+									class="form-control">
+									<option value="" selected disabled>Select Disk Drive
+										...</option>
+									<c:forEach items="${drive}" var="drive">
+										<option value="${drive.drive_id}">${drive.drive_name} - ${drive.drive_path}</option>
+									</c:forEach>
+								</select>
+										</div>
+										<div class="col-sm-6">
+											<label>Data Path *</label> <input type="text"
+												class="form-control" id="data_path1" name="data_path1"
+												placeholder="Data Path">
+										</div>
+									</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+									<label>Select System *</label> 
+									<select name="system" id="system" class="form-control">
+										<option value="" selected disabled>Select System...</option>
+											<c:forEach items="${system}" var="system">
+												<option value="${system}">${system}</option>
+											</c:forEach>
+									</select>
+									</div>
+									<!-- <div class="form-group" style="float: right; position:relative; margin: 5px;">
+									<button id="add" type="button"
+										class="btn btn-rounded btn-gradient-info mr-2"
+										onclick="return dup_div();">+</button>
+								</div>-->
+								</fieldset>
+								<button onclick="jsonconstruct('add');"
+									class="btn btn-rounded btn-gradient-info mr-2">Save</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<jsp:include page="../cdg_footer.jsp" />
