@@ -79,7 +79,7 @@ function jsonconstruct(id) {
 	
 		<br>
 		<br>
-<div id="src">
+<!-- <div id="src"> -->
 <fieldset class="fs">
 <div class="form-group">
 		<label>Select System *</label> <select name="system" id="system"
@@ -139,6 +139,7 @@ function jsonconstruct(id) {
 		</div>
 	</div>
 </fieldset>
+</form>
 <br>
 <button class="btn btn-rounded btn-gradient-info mr-2" onclick="jsonconstruct()">Test and Save</button>
 	</div>
@@ -212,16 +213,13 @@ function jsonconstruct(id) {
 		</div>
 	</div>
 	</fieldset>
+	</form>
 <button type="submit" class="btn btn-rounded btn-gradient-info mr-2" onclick="jsonconstructbulk()">Test and Save</button>
 	</div>
-	
-	
-
-
-
 </div>
 		</div>
       </div>
    </div>
 </div>
+
 <jsp:include page="../cdg_footer.jsp" />

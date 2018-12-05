@@ -75,13 +75,14 @@ function jsonconstruct() {
 		<div id="ds1" style="display: none;">
 		
 	
-		<label>Source Connection Name<span style="color:red">*</span></label> <select name="system" id="system"
-			class="form-control">
-			<option value="" selected disabled>Select connection name...</option>
-			<c:forEach items="${system}" var="system">
+		<label>Source Connection Name<span style="color:red">*</span></label> <select class="form-control"
+										id="connection_id" name="connection_id">
+										<option value="" selected disabled>${src_val}
+											Sources...</option>
+										<c:forEach items="${system}" var="system">
 				<option value="${system}">${system}</option>
 			</c:forEach>
-		</select>
+									</select>
 	</div>
 	</div>
 	</div>
@@ -116,9 +117,13 @@ function jsonconstruct() {
 	<div class="form-group">
 	<div class="col-md-12"></div>
 		<label>Preffered Target Database Name (not mandatory)</label>
-		<input type="text" class="form-control" id="target_db_name" name="target_db_name" placeholder="Target Db Name" >
-	</form>
+	<input type="text" class="form-control" id="target_db_name" name="target_db_name" placeholder="Target Db Name" >
+	</div>
+	</div>
+
 	</fieldset>
+	</form>
+	
 	<br>
 <button class="btn btn-rounded btn-gradient-info mr-2" onclick="jsonconstruct()">Propagate</button>
 </div>
