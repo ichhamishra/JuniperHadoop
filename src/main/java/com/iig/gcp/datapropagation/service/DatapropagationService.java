@@ -8,4 +8,5 @@ public interface DatapropagationService {
 
 	public String invokeRest(String json,String url) throws UnsupportedOperationException, Exception ;
 	public ArrayList<String> getSystem(String project);
+	String invokeRestprop(String json, String url) throws UnsupportedOperationException, Exception;
 }
